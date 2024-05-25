@@ -1,7 +1,7 @@
 # webdev
 Documenting my attempt at webdev (scary)
 
-Visit it here: [https://mnjkhtri.github.io/webdev/]
+Visit it here: [https://webdev-orcin.vercel.app/]
 
 
 **As documents**: just clone and open index.html
