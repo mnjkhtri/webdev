@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
 
 app = Flask(__name__, static_url_path='', static_folder='static', template_folder='templates')
 # app = Flask(__name__)
@@ -7,21 +7,39 @@ app = Flask(__name__, static_url_path='', static_folder='static', template_folde
 def index():
 	return render_template('index.html')
 
+@app.route('/site-map')
+def site_map():
+	links = []
+	for rule in app.url_map.iter_rules():
+		if rule.endpoint != 'static':
+			options = {}
+			for arg in rule.arguments:
+				options[arg] = f"{arg}"
+                
+            # Try to build a URL for the rule using its defaults, if any
+			try:
+				url = url_for(rule.endpoint, **(rule.defaults or options), _external=True)
+			except Exception as e:
+				url = f"Error building URL for {rule.endpoint}: {str(e)}"
+				
+			links.append((url, rule.endpoint))
+	return render_template('site-map.html', routes=links)
+
 @app.route('/hello')
 def hello():
     return '<h1>Hello World!</h1>'
 
 @app.route('/hello/<name>')
-def hello_custom(name):
+def hello_custom(name='World'):
     return '<h1>Hello %s!</h1>' % name
 
-@app.route('/bad_request')
+@app.route('/bad-request')
 def bad_request():
-	return '<h1>Bad Request</h1>', 400
+	return '<h1>Bad Request with 400</h1>', 400
 
 from flask import make_response
-@app.route('/response')
-def response():
+@app.route('/cookies')
+def cookies():
 	response = make_response('<h1>This is a response that set a cookie</h1>')
 	response.set_cookie('answer', '42')
 	return response
