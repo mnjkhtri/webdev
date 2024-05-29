@@ -1,0 +1,5 @@
+<ul>
+    {% for route in routes %}
+        <li><a href="{{ route[0] | safe }}">{{ route[1] }}</a></li>
+    {% endfor %}
+</ul>
