@@ -1,12 +1,50 @@
-from flask import Flask, jsonify
-from flask_cors import CORS
+import uvicorn
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
-app = Flask(__name__)
-CORS(app)  # Enable CORS for frontend requests
+from .routers import items, models, drip
+from .middleware import add_process_time_header
 
-@app.route('/api/hello', methods=['GET'])
+app = FastAPI()
+
+"""
+CORS (Cross-Origin Resource Sharing) controls how a frontend (running in a browser) can communicate with a backend from a different origin 
+(i.e., a different protocol, domain, or port).
+"""
+# Enable CORS for all origins
+app.add_middleware(
+    CORSMiddleware,
+    allow_credentials=True,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.get("/api/hello")
 def hello():
-    return jsonify({"message": "Hello from Flask backend!"})
+    return {"message": "Hello from FastAPI backend!"}
 
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+"""
+FastAPI allows defining path parameters using Python's string formatting syntax. 
+Path parameters can have type annotations, enabling automatic data conversion and validation. 
+Path operations are evaluated in order, meaning specific paths must be declared before generic ones.
+"""
+app.include_router(items.router)
+
+"""
+To restrict a path parameter to specific values, use Enum
+"""
+app.include_router(models.router)
+
+"""
+Clients send data to your API using a request body, usually in JSON format, while the API responds with a response body. 
+Unlike path or query parameters, request bodies are used when submitting structured data. 
+FastAPI leverages Pydantic models to handle request bodies efficiently, ensuring type validation
+"""
+app.include_router(drip.router)
+
+"""
+A middleware is a function that works with every request before it is processed by any specific path operation. 
+And also with every response before returning it.
+"""
+app.middleware("http")(add_process_time_header)
