@@ -1,2 +1,18 @@
-__pycache__
+### Python ###
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+dist/
+build/
+venv/
 .env
+.DS_Store
+
+
+### Node.js (npm) ###
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+.next/

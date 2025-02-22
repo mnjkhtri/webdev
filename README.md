@@ -1,25 +1,5 @@
-# webdev
-Documenting my attempt at webdev (scary)
+so yeah this is me trying to figure out web dev:
 
-Visit it here: [https://webdev-orcin.vercel.app/]
-
-
-**As documents**: just clone and open index.html
-
-**Through web server**:
-```bash
-sudo apt install apache2
-```
-
-now `sudo service apache2 start` puts a page from `/var/www/html` on localhost
-
-remove that and replace with our project's static folder:
-```
-rm /var/www/html/index.html
-sudo cp -r ./static /var/www/html
-```
-
-**Flask way**:
-```
-python3 app.py
-```
+1. static file hosting - just open the damn index in the browser
+2. static web server - apparently opening a file directly wasnt enough so here's nginx serving those files 
+3. dynamic web server - wtf is this fancy chaos
