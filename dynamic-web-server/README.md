@@ -1,11 +1,15 @@
-# 🌍 Dynamic Web Server with Flask and Next.js
+there are scripts to install dependencies:
+```
+bash scripts/setup.sh
+```
 
-This project sets up a **Flask backend** and a **Next.js frontend** to create a full-stack dynamic web application.
+and run the processes
+```
+bash scripts/start.sh
+```
+fancy a docker mate?
+```
+docker compose up
+```
 
-### Install Dependencies:
-```sh
-cd backend
-pip install -r requirements.txt
-
-cd ../frontend
-npm install
+boilerplate done. now i am making a banger todo app 🤓
