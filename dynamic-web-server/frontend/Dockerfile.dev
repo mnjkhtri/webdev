@@ -1,0 +1,20 @@
+# Use Node.js as base image
+FROM node:20
+
+# Set the working directory
+WORKDIR /app
+
+# Copy package.json and package-lock.json first to leverage caching
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the frontend files
+COPY . .
+
+# Expose frontend port
+EXPOSE 3000
+
+# Command to run Next.js app in development mode
+CMD ["npm", "run", "dev"]

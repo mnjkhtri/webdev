@@ -6,7 +6,12 @@ cd "$(dirname "$0")/.."
 # Start the backend
 echo "Starting Flask backend..."
 cd backend
-python3 src/app.py &
+
+# Activate virtual environment
+source venv/bin/activate
+
+# Run FastAPI app with Uvicorn
+uvicorn src.app:app --host 0.0.0.0 --port 5000 --reload &
 
 # Start the frontend
 echo "Starting Next.js frontend..."

@@ -7,12 +7,14 @@ Thumbs.db
 *.swp
 *.swo
 *.swn
+*.tmp
+*.cache
 
 # ============================
 # Python Ignore
 # ============================
 
-# Virtual environment
+# Virtual environments
 venv/
 env/
 __pycache__/
@@ -24,17 +26,18 @@ __pycache__/
 pip-log.txt
 pip-delete-this-directory.txt
 
-# Jupyter Notebook checkpoints
-.ipynb_checkpoints
+# Build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
 
-# Cache and temp files
-*.cache
-*.sqlite3
-*.db
-*.dat
-*.pyc
-*.pyo
-*.pyd
+# Local development settings
+.env
+*.env
+.envrc
+.settings/
+.secret/
 
 # Pytest and coverage reports
 .coverage
@@ -45,43 +48,19 @@ coverage.xml
 *.cover
 *.pycoverage
 
-# Local development settings
-.env
-*.env
-.envrc
-.settings/
-.secret/
-
-# Build artifacts
-build/
-dist/
-*.egg-info/
-.eggs/
-
-# Cython compiled files
-*.so
-
 # ============================
 # Node.js (NPM) Ignore
 # ============================
 
-# Node modules
+# Node modules (avoid copying to Docker)
 node_modules/
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
 pnpm-debug.log*
 
 # Build artifacts
 dist/
 build/
-
-# Environment variables
-.env
-.env.local
-.env.development
-.env.production
-.env.test
 
 # Next.js cache
 .next/
@@ -102,8 +81,16 @@ package-lock.json
 tmp/
 temp/
 
-# VSCode settings
-.vscode/
+# ============================
+# Git Ignore
+# ============================
+.git/
+.gitignore
 
-# MacOS system files
-.DS_Store
+# ============================
+# Docker Ignore
+# ============================
+.dockerignore
+Dockerfile
+docker-compose.override.yml
+docker-compose.override.yaml
