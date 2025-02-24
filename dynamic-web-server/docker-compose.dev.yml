@@ -1,13 +1,20 @@
 services:
   db:
-    image: postgres:latest
-    restart: always
+    image: 
+      postgres:latest
+    restart: 
+      always
     ports:
       - "5432:5432"
     env_file:
       - .env.dev
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 3s
+      timeout: 5s
+      retries: 10  # (wait longer for PostgreSQL to fully initialize)
 
   backend:
     build: 
@@ -16,11 +23,12 @@ services:
     ports:
       - "5000:5000"
     volumes:
-      - ./backend:/app
+      - ./backend/src:/app/src
     env_file:
       - .env.dev
     depends_on:
-      - db
+      db:
+        condition: service_healthy  # (only starts when PostgreSQL is fully ready)
 
   frontend:
     build: 
@@ -29,7 +37,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./frontend:/app
+      - ./frontend/src:/app/src
     env_file:
       - .env.dev
 

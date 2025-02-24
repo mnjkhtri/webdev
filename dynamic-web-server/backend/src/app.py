@@ -1,9 +1,8 @@
-import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
-from .routers import items, models, drip
-from .middleware import add_process_time_header
+from src.routers import items, models, drip, todo
+from src.middleware import add_process_time_header
+from src.db.conn import Base, engine
 
 app = FastAPI()
 
@@ -48,3 +47,7 @@ A middleware is a function that works with every request before it is processed 
 And also with every response before returning it.
 """
 app.middleware("http")(add_process_time_header)
+
+# Include Todo router
+Base.metadata.create_all(bind=engine)
+app.include_router(todo.router)

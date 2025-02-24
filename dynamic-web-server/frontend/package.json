@@ -1,5 +1,5 @@
 {
-  "name": "nextjs-flask-app",
+  "name": "nextjs-app",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -10,6 +10,7 @@
   "dependencies": {
     "next": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "next-themes": "latest"
   }
 }
