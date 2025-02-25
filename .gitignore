@@ -104,6 +104,7 @@ temp/
 
 # VSCode settings
 .vscode/
+.vscode-root/
 
 # MacOS system files
 .DS_Store

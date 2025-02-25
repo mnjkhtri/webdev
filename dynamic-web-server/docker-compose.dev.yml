@@ -22,10 +22,10 @@ services:
       dockerfile: Dockerfile.dev
     ports:
       - "5000:5000"
-    volumes:
-      - ./backend/src:/app/src
     env_file:
       - .env.dev
+    volumes:
+      - ./backend/src:/app/src
     depends_on:
       db:
         condition: service_healthy  # (only starts when PostgreSQL is fully ready)
@@ -33,13 +33,13 @@ services:
   frontend:
     build: 
       context: ./frontend
-      dockerfile: Dockerfile.dev 
+      dockerfile: Dockerfile.dev
     ports:
       - "3000:3000"
-    volumes:
-      - ./frontend/src:/app/src
     env_file:
       - .env.dev
+    volumes:
+      - ./frontend/src:/app/src
 
 volumes:
   pgdata:
