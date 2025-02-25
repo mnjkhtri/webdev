@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 
-router = APIRouter(prefix="/api/items", tags=["items"])
+router = APIRouter(prefix="/api/v1/items", tags=["items"])
 
 # Simulated database
 fake_items_db = [

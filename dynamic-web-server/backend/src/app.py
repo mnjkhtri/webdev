@@ -19,9 +19,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/api/hello")
+@app.get("/api/v1/hello")
 def hello():
-    return {"message": "Hello from FastAPI backend!"}
+    return {"message": "thanks claude lol"}
 
 """
 FastAPI allows defining path parameters using Python's string formatting syntax. 

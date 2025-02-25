@@ -4,7 +4,7 @@ import {
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
-import TodoTable from "./components/todo-table";
+import MyForm from "./components/my-form";
 
 
 export default function Page() {
@@ -15,7 +15,7 @@ export default function Page() {
       <AppHeader />
       <HydrationBoundary state={dehydrate(queryClient)}>
         <div className="p-4">
-          <TodoTable />
+          <MyForm />
         </div>
       </HydrationBoundary>
     </div>

@@ -6,6 +6,8 @@ services:
       always
     ports:
       - "5432:5432"
+    networks:
+      - localnetwork
     env_file:
       - .env.dev
     volumes:
@@ -22,6 +24,8 @@ services:
       dockerfile: Dockerfile.dev
     ports:
       - "5000:5000"
+    networks:
+      - localnetwork
     env_file:
       - .env.dev
     volumes:
@@ -36,6 +40,8 @@ services:
       dockerfile: Dockerfile.dev
     ports:
       - "3000:3000"
+    networks:
+      - localnetwork
     env_file:
       - .env.dev
     volumes:
@@ -43,3 +49,6 @@ services:
 
 volumes:
   pgdata:
+
+networks:
+  localnetwork:

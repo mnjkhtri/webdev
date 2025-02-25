@@ -85,7 +85,7 @@ This maintains a clear separation of concerns between data processing (CRUD) and
 """
 
 # Define API router for Todo
-router = APIRouter(prefix="/api/todos", tags=["todos"])
+router = APIRouter(prefix="/api/v1/todos", tags=["todos"])
 
 depends_db = Depends(conn.get_db)
 

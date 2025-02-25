@@ -11,7 +11,7 @@ const defaultPath: Path = {
     id: "",
     path: [
         {
-            title: "Home",
+            title: "",
             href: "",
         }
     ],

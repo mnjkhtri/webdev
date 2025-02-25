@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from enum import Enum
 
-router = APIRouter(prefix="/api/models", tags=["models"])
+router = APIRouter(prefix="/api/v1/models", tags=["models"])
 
 class ModelName(str, Enum):
     rizzler = "rizzler"
