@@ -21,12 +21,10 @@ import { SendIcon, MailIcon } from "lucide-react"
 
 // Define the form values type
 type ContactFormValues = {
-  name: string
-  email: string
+  insta: string
+  gender: string
   subject: string
   message: string
-  department: string
-  priority: string
   subscribe: boolean
 }
 
@@ -34,12 +32,10 @@ export default function ContactForm() {
   // Initialize the form with default values
   const form = useForm<ContactFormValues>({
     defaultValues: {
-      name: "",
-      email: "",
+      insta: "",
+      gender: "",
       subject: "",
       message: "",
-      department: "",
-      priority: "normal",
       subscribe: false,
     },
   })
@@ -47,7 +43,7 @@ export default function ContactForm() {
   // Handle form submission
   function onSubmit(data: ContactFormValues) {
     console.log(data)
-    alert("Form submitted successfully!")
+    alert(`Form submitted successfully!\n\n${JSON.stringify(data, null, 2)}`);
     // Here you would typically send the data to your API
     form.reset()
   }
@@ -69,10 +65,34 @@ export default function ContactForm() {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Department field */}
+
+                {/* insta field */}
                 <FormField
                   control={form.control}
-                  name="department"
+                  name="insta"
+                  rules={{ required: "pls :(" }}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>insta</FormLabel>
+                      <FormControl>
+                        <Input 
+                          placeholder="mnkhtrii" 
+                          {...field} 
+                          className="w-full"
+                        />
+                      </FormControl>
+                      <FormDescription className="text-xs">
+                        i will send you reels
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {/* gender field */}
+                <FormField
+                  control={form.control}
+                  name="gender"
                   render={({ field }) => (
                     <FormItem className="relative z-30">
                       <FormLabel>gender</FormLabel>
@@ -105,88 +125,7 @@ export default function ContactForm() {
                     </FormItem>
                   )}
                 />
-
-                {/* Priority field */}
-                <FormField
-                  control={form.control}
-                  name="numbers"
-                  render={({ field }) => (
-                    <FormItem className="relative z-20">
-                      <FormLabel>nums</FormLabel>
-                      <Select 
-                        onValueChange={field.onChange} 
-                        value={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger className="w-full">
-                            <SelectValue placeholder="placeholder here" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent
-                          style={{
-                            backgroundColor: 'hsl(var(--background))',
-                            borderColor: 'hsl(var(--border))'
-                          }}
-                        >
-                          <SelectItem value="0">0</SelectItem>
-                          <SelectItem value="1">1</SelectItem>
-                          <SelectItem value="2">2</SelectItem>
-                          <SelectItem value="3">3</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormDescription className="text-xs">
-                        magic incoming
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Name field */}
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>name</FormLabel>
-                      <FormControl>
-                        <Input 
-                          placeholder="Manoj Khatri" 
-                          {...field} 
-                          className="w-full"
-                        />
-                      </FormControl>
-                      <FormDescription className="text-xs">
-                        gotta call you something, right?
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                {/* Email field */}
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>insta</FormLabel>
-                      <FormControl>
-                        <Input 
-                          placeholder="mnkhtrii" 
-                          {...field} 
-                          className="w-full"
-                        />
-                      </FormControl>
-                      <FormDescription className="text-xs">
-                        i will send you reels
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                
               </div>
 
               {/* Subject field */}
@@ -243,9 +182,9 @@ export default function ContactForm() {
                       />
                     </FormControl>
                     <div className="space-y-1 leading-none">
-                      <FormLabel>i can do checkboxes</FormLabel>
+                      <FormLabel>just to prove i can do checkboxes</FormLabel>
                       <FormDescription className="text-xs">
-                        just click its fun o this is long 
+                        if you like my website then click appreciate it
                       </FormDescription>
                     </div>
                   </FormItem>
