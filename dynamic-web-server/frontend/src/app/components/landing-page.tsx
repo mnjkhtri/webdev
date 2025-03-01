@@ -2,9 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { getData } from "@/lib/fetchers";
-import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button"
 
 export default function LandingPage() {
   const { data, isLoading, error } = useQuery({
@@ -12,7 +10,6 @@ export default function LandingPage() {
     queryFn: () => getData("/hello"),
   });
 
-  const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   // Ensure theme is correctly applied after hydration
