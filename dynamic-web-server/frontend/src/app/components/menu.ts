@@ -24,6 +24,11 @@ export const MenuArray: MenuItem[] =
                     href: "/todo-app",
                 },
                 {
+                    id: "fractals",
+                    title: "fractals",
+                    href: "/fractals",
+                },
+                {
                     id: "feedback",
                     title: "feedback",
                     href: "/feedback",

@@ -14,6 +14,8 @@ import {
 } from "@/components/ui/sidebar";
 import { usePathFinder } from "@/hooks/use-pathfinder";
 import { Fragment } from "react";
+import { ModeToggle } from "./toggle-theme";
+
 
 export function AppHeader() {
     const currentPath = usePathFinder();
@@ -24,6 +26,7 @@ export function AppHeader() {
                 <div className="flex items-center gap-2 shrink-0">
                     <SidebarTrigger className="-ml-1" />
                 </div>
+                <div><ModeToggle /></div>
             </header>
         );
     }
@@ -56,6 +59,7 @@ export function AppHeader() {
                     </BreadcrumbList>
                 </Breadcrumb>
             </div>
+            <div><ModeToggle /></div>
         </header>
     );
 }

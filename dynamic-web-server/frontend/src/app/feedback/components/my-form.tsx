@@ -29,7 +29,6 @@ type ContactFormValues = {
 }
 
 export default function ContactForm() {
-  // Initialize the form with default values
   const form = useForm<ContactFormValues>({
     defaultValues: {
       insta: "",
@@ -40,20 +39,18 @@ export default function ContactForm() {
     },
   })
 
-  // Handle form submission
   function onSubmit(data: ContactFormValues) {
     console.log(data)
-    alert(`Form submitted successfully!\n\n${JSON.stringify(data, null, 2)}`);
-    // Here you would typically send the data to your API
+    alert(`Form submitted successfully!\n\n${JSON.stringify(data, null, 2)}`)
     form.reset()
   }
 
   return (
     <div className="w-full max-w-3xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-      <Card className="border shadow-sm">
+      <Card>
         <CardHeader className="text-center pb-6 border-b">
-          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-            <MailIcon className="h-6 w-6 text-primary" />
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full">
+            <MailIcon className="h-6 w-6" />
           </div>
           <CardTitle className="text-3xl font-bold">what up bro? 👀</CardTitle>
           <CardDescription className="text-base mt-2">
@@ -63,10 +60,7 @@ export default function ContactForm() {
         <CardContent className="pt-6">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-                {/* insta field */}
                 <FormField
                   control={form.control}
                   name="insta"
@@ -75,11 +69,7 @@ export default function ContactForm() {
                     <FormItem>
                       <FormLabel>insta</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder="mnkhtrii" 
-                          {...field} 
-                          className="w-full"
-                        />
+                        <Input placeholder="mnkhtrii" {...field} className="w-full" />
                       </FormControl>
                       <FormDescription className="text-xs">
                         i will send you reels
@@ -88,66 +78,46 @@ export default function ContactForm() {
                     </FormItem>
                   )}
                 />
-
-                {/* gender field */}
                 <FormField
                   control={form.control}
                   name="gender"
                   render={({ field }) => (
-                    <FormItem className="relative z-30">
+                    <FormItem>
                       <FormLabel>gender</FormLabel>
-                      <Select 
-                        onValueChange={field.onChange} 
-                        value={field.value}
-                      >
+                      <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
                           <SelectTrigger className="w-full">
                             <SelectValue placeholder="pick one" />
                           </SelectTrigger>
                         </FormControl>
-                        <SelectContent
-                          style={{
-                            backgroundColor: 'hsl(var(--background))',
-                            borderColor: 'hsl(var(--border))'
-                          }}
-                        >
+                        <SelectContent>
                           <SelectItem value="attack helicopter">Attack helicopter</SelectItem>
-                          <SelectItem value="justin">Justin</SelectItem>
-                          <SelectItem value="idk man">idk man</SelectItem>
-                          <SelectItem value="king">King</SelectItem>
+                          <SelectItem value="female">Justin</SelectItem>
+                          <SelectItem value="girl">idk man</SelectItem>
                           <SelectItem value="biphoric transexual megamonster">biphoric transexual megamonster</SelectItem>
                         </SelectContent>
                       </Select>
-                      <FormDescription className="text-xs">
-                        support ltqdm
-                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <FormField
+                  control={form.control}
+                  name="subject"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>here yo go</FormLabel>
+                      <FormControl>
+                        <Input placeholder="say something." {...field} className="w-full" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
 
-              {/* Subject field */}
-              <FormField
-                control={form.control}
-                name="subject"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>here yo go</FormLabel>
-                    <FormControl>
-                      <Input 
-                        placeholder="say something."
-                        {...field} 
-                        className="w-full"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              {/* Message field */}
               <FormField
                 control={form.control}
                 name="message"
@@ -155,11 +125,7 @@ export default function ContactForm() {
                   <FormItem>
                     <FormLabel>say more</FormLabel>
                     <FormControl>
-                      <Textarea 
-                        placeholder="all the juicy deets go here..."
-                        className="min-h-36 resize-y"
-                        {...field} 
-                      />
+                      <Textarea placeholder="all the juicy deets go here..." className="min-h-36 resize-y" {...field} />
                     </FormControl>
                     <FormDescription className="text-xs">
                       tell more.
@@ -168,18 +134,13 @@ export default function ContactForm() {
                   </FormItem>
                 )}
               />
-
-              {/* Subscribe checkbox */}
               <FormField
                 control={form.control}
                 name="subscribe"
                 render={({ field }) => (
-                  <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow-sm">
+                  <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                     <FormControl>
-                      <Checkbox
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
+                      <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                     </FormControl>
                     <div className="space-y-1 leading-none">
                       <FormLabel>just to prove i can do checkboxes</FormLabel>
@@ -190,13 +151,8 @@ export default function ContactForm() {
                   </FormItem>
                 )}
               />
-
               <div className="flex justify-end space-x-4 pt-4">
-                <Button 
-                  type="button" 
-                  onClick={() => form.reset()}
-                  variant="secondary"
-                >
+                <Button type="button" onClick={() => form.reset()}>
                   Nvm
                 </Button>
                 <Button type="submit">

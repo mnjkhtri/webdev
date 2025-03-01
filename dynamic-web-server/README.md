@@ -13,3 +13,6 @@ docker compose up
 ```
 
 boilerplate done. now i am making a banger todo app 🤓
+
+todo:
+there is some worker code in madelbrot thats not statistically analyzable, dont know how to fix it
