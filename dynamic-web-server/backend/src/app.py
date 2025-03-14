@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from src.routers import items, models, drip, todo
+from src.routers import items, models, drip, todo, websocket
 from src.middleware import add_process_time_header
 from src.db.conn import Base, engine
 
@@ -51,3 +51,10 @@ app.middleware("http")(add_process_time_header)
 # Include Todo router
 Base.metadata.create_all(bind=engine)
 app.include_router(todo.router)
+
+"""
+The WebSocket API makes it possible to open a two-way interactive communication session between 
+the user's browser and a server. 
+With this API, you can send messages to a server and receive responses without having to poll the server for a reply.
+"""
+app.include_router(websocket.router)

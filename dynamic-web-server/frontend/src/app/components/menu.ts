@@ -29,6 +29,11 @@ export const MenuArray: MenuItem[] =
                     href: "/fractals",
                 },
                 {
+                    id: "random",
+                    title: "random",
+                    href: "/random",
+                },
+                {
                     id: "feedback",
                     title: "feedback",
                     href: "/feedback",

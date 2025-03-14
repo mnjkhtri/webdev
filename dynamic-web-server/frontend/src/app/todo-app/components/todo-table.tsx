@@ -1,5 +1,4 @@
 "use client";
-
 import { getData, postData, putData, deleteData } from "@/lib/fetchers";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -24,6 +23,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import {
   Trash,
   PencilLine,
   CheckCircle,
@@ -31,6 +36,7 @@ import {
   Plus,
   X,
   Loader2,
+  Info,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
@@ -41,22 +47,17 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-
 export default function TodoTable() {
   const [editingId, setEditingId] = useState(null);
-
   // Fetch todos
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["todos"],
     queryFn: () => getData("/todos"),
   });
-
   // Make sure todos is always an array
   const todos = Array.isArray(data) ? data : [];
-
   // Sort them by ID (or any stable property) before rendering
   const sortedTodos = [...todos].sort((a, b) => a.id - b.id);
-
   // Form setup
   const form = useForm({
     defaultValues: {
@@ -64,7 +65,6 @@ export default function TodoTable() {
       description: "",
     },
   });
-
   const onSubmit = async (formData) => {
     try {
       if (editingId !== null) {
@@ -84,7 +84,6 @@ export default function TodoTable() {
       console.error("Failed to save todo:", error);
     }
   };
-
   const handleDelete = async (id) => {
     try {
       await deleteData(`/todos/${id}`, {});
@@ -93,12 +92,10 @@ export default function TodoTable() {
       console.error("Failed to delete todo:", error);
     }
   };
-
   const handleToggleComplete = async (id, currentStatus) => {
     try {
       const existingTodo = todos.find((todo) => todo.id === id);
       if (!existingTodo) return;
-
       await putData(`/todos/${id}`, {
         ...existingTodo,
         completed: !currentStatus,
@@ -108,7 +105,6 @@ export default function TodoTable() {
       console.error("Failed to update todo status:", error);
     }
   };
-
   const handleEdit = (todo) => {
     form.reset({
       title: todo.title,
@@ -116,11 +112,9 @@ export default function TodoTable() {
     });
     setEditingId(todo.id);
   };
-
   // Calculate stats
   const completedCount = todos.filter(todo => todo.completed).length;
   const pendingCount = todos.length - completedCount;
-
   return (
     <div className="container mx-auto py-8 px-4 max-w-2xl">
       <Card className="mb-8">
@@ -147,8 +141,8 @@ export default function TodoTable() {
                   <FormItem>
                     <FormLabel>Task Title</FormLabel>
                     <FormControl>
-                      <Input 
-                        placeholder="What do you need to do?" 
+                      <Input
+                        placeholder="What do you need to do?"
                         {...field}
                       />
                     </FormControl>
@@ -156,7 +150,6 @@ export default function TodoTable() {
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={form.control}
                 name="description"
@@ -164,8 +157,8 @@ export default function TodoTable() {
                   <FormItem>
                     <FormLabel>Description</FormLabel>
                     <FormControl>
-                      <Textarea 
-                        placeholder="Add some details..." 
+                      <Textarea
+                        placeholder="Add some details..."
                         {...field}
                         className="min-h-20"
                       />
@@ -174,7 +167,6 @@ export default function TodoTable() {
                   </FormItem>
                 )}
               />
-
               <div className="flex items-center gap-2 pt-2">
                 <Button type="submit" variant='outline'>
                   {editingId !== null ? (
@@ -206,6 +198,43 @@ export default function TodoTable() {
         </CardContent>
       </Card>
 
+      {/* Task Information Accordion */}
+      <Card className="mb-8">
+        <CardHeader>
+          <div className="flex items-center gap-2">
+            <Info className="h-5 w-5" />
+            <CardTitle>Task Information</CardTitle>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <Accordion type="single" collapsible className="w-full">
+            <AccordionItem value="item-1">
+              <AccordionTrigger>How tasks are organized</AccordionTrigger>
+              <AccordionContent>
+                Tasks are sorted by their creation order. You can mark tasks as complete by clicking the checkbox.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-2">
+              <AccordionTrigger>Task priority levels</AccordionTrigger>
+              <AccordionContent>
+                Currently all tasks have the same priority level. Future updates will allow you to set high, medium, or low priorities for better task management.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-3">
+              <AccordionTrigger>Tips for task management</AccordionTrigger>
+              <AccordionContent>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>Break large tasks into smaller, manageable ones</li>
+                  <li>Set realistic deadlines for your tasks</li>
+                  <li>Review and update your task list regularly</li>
+                  <li>Celebrate completing tasks to stay motivated</li>
+                </ul>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </CardContent>
+      </Card>
+
       {/* Task List */}
       <Card>
         <CardHeader>
@@ -221,19 +250,17 @@ export default function TodoTable() {
               <Loader2 className="h-8 w-8 animate-spin" />
             </div>
           )}
-          
           {!isLoading && todos.length === 0 && (
             <div className="flex flex-col justify-center items-center my-12 text-center">
               <CheckCircle className="h-16 w-16 text-muted mb-4" />
               <p className="text-muted-foreground">Nothing to do yet. Add your first task!</p>
             </div>
           )}
-          
           {!isLoading && sortedTodos.length > 0 && (
             <div className="space-y-3 mt-2">
               {sortedTodos.map((todo) => (
-                <Card 
-                  key={todo.id} 
+                <Card
+                  key={todo.id}
                   className={cn(
                     "transition-all",
                     todo.completed ? "bg-muted/50" : ""
@@ -276,9 +303,9 @@ export default function TodoTable() {
                       <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger asChild>
-                            <Button 
-                              variant="outline" 
-                              size="sm" 
+                            <Button
+                              variant="outline"
+                              size="sm"
                               onClick={() => handleEdit(todo)}
                             >
                               <PencilLine size={14} />
@@ -287,7 +314,6 @@ export default function TodoTable() {
                           <TooltipContent>Edit task</TooltipContent>
                         </Tooltip>
                       </TooltipProvider>
-
                       <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger asChild>
