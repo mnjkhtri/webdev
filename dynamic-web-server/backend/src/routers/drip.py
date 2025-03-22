@@ -1,7 +1,12 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from src.middleware import get_api_key
 from pydantic import BaseModel
 
-router = APIRouter(prefix="/api/v1/drip", tags=["drip"])
+router = APIRouter(
+    prefix="/api/v1/drip", 
+    tags=["drip"],
+    dependencies=[Depends(get_api_key)],
+)
 
 class Drip(BaseModel):
     name: str

@@ -23,20 +23,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import {
   Trash,
   PencilLine,
   CheckCircle,
   List,
   Plus,
   X,
-  Loader2,
-  Info,
+  Loader2
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
@@ -47,6 +40,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+
 export default function TodoTable() {
   const [editingId, setEditingId] = useState(null);
   // Fetch todos
@@ -195,43 +189,6 @@ export default function TodoTable() {
               </div>
             </form>
           </Form>
-        </CardContent>
-      </Card>
-
-      {/* Task Information Accordion */}
-      <Card className="mb-8">
-        <CardHeader>
-          <div className="flex items-center gap-2">
-            <Info className="h-5 w-5" />
-            <CardTitle>Task Information</CardTitle>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <Accordion type="single" collapsible className="w-full">
-            <AccordionItem value="item-1">
-              <AccordionTrigger>How tasks are organized</AccordionTrigger>
-              <AccordionContent>
-                Tasks are sorted by their creation order. You can mark tasks as complete by clicking the checkbox.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-2">
-              <AccordionTrigger>Task priority levels</AccordionTrigger>
-              <AccordionContent>
-                Currently all tasks have the same priority level. Future updates will allow you to set high, medium, or low priorities for better task management.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-3">
-              <AccordionTrigger>Tips for task management</AccordionTrigger>
-              <AccordionContent>
-                <ul className="list-disc pl-5 space-y-1">
-                  <li>Break large tasks into smaller, manageable ones</li>
-                  <li>Set realistic deadlines for your tasks</li>
-                  <li>Review and update your task list regularly</li>
-                  <li>Celebrate completing tasks to stay motivated</li>
-                </ul>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
         </CardContent>
       </Card>
 

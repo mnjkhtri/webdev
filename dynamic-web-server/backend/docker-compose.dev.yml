@@ -20,7 +20,7 @@ services:
 
   backend:
     build: 
-      context: ./backend
+      context: .
       dockerfile: Dockerfile.dev
     ports:
       - "5000:5000"
@@ -29,26 +29,18 @@ services:
     env_file:
       - .env.dev
     volumes:
-      - ./backend/src:/app/src
+      - ./src:/app/src
     depends_on:
       db:
         condition: service_healthy  # (only starts when PostgreSQL is fully ready)
-
-  frontend:
-    build: 
-      context: ./frontend
-      dockerfile: Dockerfile.dev
-    ports:
-      - "3000:3000"
-    networks:
-      - localnetwork
-    env_file:
-      - .env.dev
-    volumes:
-      - ./frontend/src:/app/src
 
 volumes:
   pgdata:
 
 networks:
   localnetwork:
+
+
+######
+
+# sudo docker compose -f docker-compose.dev.yml up --build

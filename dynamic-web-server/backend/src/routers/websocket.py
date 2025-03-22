@@ -1,11 +1,15 @@
 import asyncio
 import random
-import json
-from fastapi import APIRouter, WebSocket, WebSocketDisconnect
-from pydantic import BaseModel, ValidationError
+from fastapi import APIRouter, Depends, WebSocket, WebSocketDisconnect
+from pydantic import BaseModel
 from typing import List, Literal
+from src.middleware import get_api_key
 
-router = APIRouter(prefix="/ws/test", tags=["test"])
+router = APIRouter(
+    prefix="/ws/test", 
+    tags=["test"],
+    dependencies=[Depends(get_api_key)],
+)
 
 class ServerMessage(BaseModel):
     """Base model for all messages sent from server"""
@@ -72,17 +76,71 @@ async def send_random_numbers(websocket: WebSocket, client_id: str):
 async def websocket_docs():
     """
     WebSocket documentation (manually added to OpenAPI).
-    - **Connect to WebSocket**: `ws://localhost:5000/ws/test/{client_id}`
-    - **Receive Messages**: Receive JSON that conforms to the ServerMessage schema
+    
+    **WebSocket URL**: `ws://localhost:5000/ws/test/{client_id}`
+
+    **Description**: 
+    This is a duplex WebSocket endpoint where:
+    - The server sends random numbers every 3 seconds to the connected client.
+    - Clients can send text messages to the server, which are broadcast to all connected clients.
+
+    **Message Flow**:
+    - **Client → Server**: Raw text (string) is sent. It will be wrapped into a broadcast message and sent to all clients.
+    - **Server → Client**: JSON messages based on `ServerMessage` schema.
+
+    **Schemas**:
+    
+    - **Client-to-Server Message**:
+      - Type: `string`
+      - Example: `"Hello everyone!"`
+      - Notes: Must be a plain text message. The server will wrap this into a broadcast message.
+
+    - **Server-to-Client Message (ServerMessage)**:
+      ```json
+      {
+        "type": "data" | "broadcast",
+        "content": "string",
+        "client_id": "string"
+      }
+      ```
+      - **type**: 
+        - `"data"` – Automatically sent by the server with random numbers.
+        - `"broadcast"` – Sent when a client sends a message to be shared with all.
+      - **content**: 
+        - For `"data"` type, a random number as a string.
+        - For `"broadcast"` type, the original client message.
+      - **client_id**: Identifier of the client who sent or received the message.
+
+    **Usage Instructions**:
+    1. Open a WebSocket connection to: `ws://localhost:5000/ws/test/{client_id}`.
+    2. Send plain text messages.
+    3. Listen for JSON messages from the server.
+    4. Expect periodic random number messages and any broadcasted messages from other clients.
+
     """
     return {
         "WebSocket URL": "ws://localhost:5000/ws/test/{client_id}",
-        "Description": "Duplex WebSocket communication endpoint with random number generation.",
-        "Message Formats": {
-            "ServerMessage": {
-                "type": "string - 'data', 'broadcast'",
-                "content": "string - message content"
+        "Description": "Duplex WebSocket communication endpoint with random number generation and broadcasting.",
+        "Message Flow": {
+            "Client-to-Server": {
+                "type": "string (plain text)",
+                "example": "Hello everyone!",
+                "notes": "The server will convert this into a broadcast message."
+            },
+            "Server-to-Client (ServerMessage)": {
+                "type": "'data' | 'broadcast'",
+                "content": "string",
+                "client_id": "string",
+                "example": {
+                    "type": "broadcast",
+                    "content": "Hello everyone!",
+                    "client_id": "client123"
+                }
             }
         },
-        "Instructions": "Connect with a WebSocket client. Send properly formatted JSON messages."
+        "Instructions": [
+            "Connect using a WebSocket client.",
+            "Send plain text messages to broadcast to all clients.",
+            "Listen for random 'data' messages and other clients' 'broadcast' messages."
+        ]
     }

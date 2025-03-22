@@ -1,7 +1,12 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from enum import Enum
+from src.middleware import get_api_key
 
-router = APIRouter(prefix="/api/v1/models", tags=["models"])
+router = APIRouter(
+    prefix="/api/v1/models", 
+    tags=["models"],
+    dependencies=[Depends(get_api_key)],
+)
 
 class ModelName(str, Enum):
     rizzler = "rizzler"

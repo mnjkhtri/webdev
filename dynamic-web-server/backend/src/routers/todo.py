@@ -2,6 +2,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from src.db import conn, models
+from src.middleware import get_api_key
 from pydantic import BaseModel
 
 """
@@ -85,7 +86,11 @@ This maintains a clear separation of concerns between data processing (CRUD) and
 """
 
 # Define API router for Todo
-router = APIRouter(prefix="/api/v1/todos", tags=["todos"])
+router = APIRouter(
+    prefix="/api/v1/todos", 
+    tags=["todos"],
+    dependencies=[Depends(get_api_key)],
+)
 
 depends_db = Depends(conn.get_db)
 

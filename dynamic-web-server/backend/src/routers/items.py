@@ -1,6 +1,11 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
+from src.middleware import get_api_key
 
-router = APIRouter(prefix="/api/v1/items", tags=["items"])
+router = APIRouter(
+    prefix="/api/v1/items", 
+    tags=["items"],
+    dependencies=[Depends(get_api_key)],
+)
 
 # Simulated database
 fake_items_db = [
