@@ -37,6 +37,11 @@ export const MenuArray: MenuItem[] =
                     id: "feedback",
                     title: "feedback",
                     href: "/feedback",
+                },
+                {
+                    id: "map",
+                    title: "map",
+                    href: "/map",
                 }
             ],
         },

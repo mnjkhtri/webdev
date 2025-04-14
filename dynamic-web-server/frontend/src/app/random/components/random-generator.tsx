@@ -7,15 +7,10 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import useWebSocket from '@/hooks/use-websocket';
 
-import dynamic from "next/dynamic";
-const Plot = dynamic(() => import("react-plotly.js"), { ssr: false });
-
 const WebSocketVisualizer = () => {
   const [message, setMessage] = useState('');
   const [clientId] = useState(`user-${Math.floor(Math.random() * 10000)}`);
-  const [messageData, setMessageData] = useState<any[]>([]);
   const [messageBroadcast, setMessageBroadcast] = useState<any[]>([]);
-  const lastNumberRef = useRef<number | null>(null);
   
   const { isConnected, sendMessage, connectionError, connect, disconnect } = useWebSocket({
     endpoint: '/test',
@@ -27,27 +22,7 @@ const WebSocketVisualizer = () => {
   const processWebSocketMessage = (data: any) => {
     const timestamp = Date.now();
     
-    if (data.type === 'data') {
-      // Parse number from data or use string length as fallback
-      const number = !isNaN(parseFloat(data.content)) 
-        ? parseFloat(data.content) 
-        : data.content.length;
-      
-      lastNumberRef.current = number;
-      
-      // Add data point to chart
-      setMessageData(prevData => {
-        const newData = [...prevData, {
-          time: timestamp,
-          value: number,
-          content: data.content
-        }];
-        
-        // Keep only last 100 data points
-        return newData.length > 100 ? newData.slice(-100) : newData;
-      });
-    } 
-    else if (data.type === 'broadcast') {
+    if (data.type === 'broadcast') {
       // Add to broadcast messages list
       setMessageBroadcast(prevMessages => {
         const newMessages = [...prevMessages, {
@@ -74,52 +49,6 @@ const WebSocketVisualizer = () => {
       handleSendMessage();
     }
   };
-  
-  const getPlotData = () => {
-    return {
-      data: messageData.length > 0 ? [
-        {
-          x: messageData.map(item => new Date(item.time)),
-          y: messageData.map(item => item.value),
-          type: 'scatter',
-          mode: 'lines+markers',
-          marker: { color: 'hsl(var(--primary))' },
-          line: { shape: 'spline', smoothing: 1.3, width: 2 },
-          name: 'Message Value',
-          hovertemplate: 'Time: %{x}<br>Value: %{y}<extra></extra>',
-        }
-      ] : [],
-      layout: {
-        autosize: true,
-        margin: { t: 10, r: 30, l: 40, b: 40 },
-        height: 340,
-        xaxis: {
-          type: 'date',
-          showgrid: true,
-          gridcolor: 'rgba(0,0,0,0.1)',
-          tickfont: { size: 10 },
-          tickformat: '%H:%M:%S',             // Format as HH:MM:SS
-          tickangle: -45,                     // Angle the labels for better readability
-          rangeslider: { visible: false },    // Disable the range slider
-          automargin: true                    // Auto-adjust margins for labels
-        },
-        yaxis: {
-          showgrid: true,
-          gridcolor: 'rgba(0,0,0,0.1)',
-          tickfont: { size: 10 },
-          automargin: true
-        },
-        plot_bgcolor: 'transparent',
-        paper_bgcolor: 'transparent',
-        hovermode: 'closest',
-        showlegend: false
-      },
-      config: {
-        responsive: true,
-        displayModeBar: false
-      }
-    };
-  };
 
   // Clean up on unmount
   useEffect(() => {
@@ -127,8 +56,6 @@ const WebSocketVisualizer = () => {
       disconnect();
     };
   }, [disconnect]);
-  
-  const plotData = getPlotData();
   
   return (
     <div className="min-h-screen">
@@ -166,10 +93,10 @@ const WebSocketVisualizer = () => {
           </div>
         </CardHeader>
         
-        <CardFooter className="border-t p-3">
+        <CardFooter className="border-t p-3 flex flex-col gap-2">
           {connectionError && (
-            <div className="w-full mb-2 text-destructive text-sm">
-              Connection Error: Click "Connect" to try again.
+            <div className="w-full text-destructive text-sm">
+              Connection Error. The websocket is not available.
             </div>
           )}
           <div className="flex w-full space-x-2">
@@ -186,36 +113,12 @@ const WebSocketVisualizer = () => {
       
       {/* Visualization Area - Charts stacked vertically */}
       <div className="grid grid-cols-1 gap-6">
-        {/* Data/Broadcast Messages Chart */}
-        <Card className="shadow-sm">
-          <CardHeader className="pb-2">
-            <CardTitle className="flex items-center gap-2 text-base font-medium">
-              The Random Walk
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-0">
-            <div className="h-[340px] w-full">
-              {messageData.length > 0 ? (
-                <Plot
-                  data={plotData.data}
-                  layout={plotData.layout}
-                  config={plotData.config}
-                  style={{ width: '100%', height: '100%' }}
-                />
-              ) : (
-                <div className="h-full w-full flex items-center justify-center text-muted-foreground">
-                  No data messages received yet
-                </div>
-              )}
-            </div>
-          </CardContent>
-        </Card>
         
         {/* Echo Messages List */}
         <Card className="shadow-sm">
           <CardHeader className="pb-2">
             <CardTitle className="flex items-center gap-2 text-base font-medium">
-              Walk Companion
+              Chat with your nigga
             </CardTitle>
           </CardHeader>
           <CardContent>

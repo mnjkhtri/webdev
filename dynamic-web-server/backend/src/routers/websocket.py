@@ -8,7 +8,6 @@ from src.middleware import get_api_key
 router = APIRouter(
     prefix="/ws/test", 
     tags=["test"],
-    dependencies=[Depends(get_api_key)],
 )
 
 class ServerMessage(BaseModel):

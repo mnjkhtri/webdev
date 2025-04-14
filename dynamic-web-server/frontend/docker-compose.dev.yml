@@ -10,3 +10,6 @@ services:
       - .env.dev
     volumes:
       - ./src:/app/src
+
+
+  # sudo docker compose -f docker-compose.dev.yml up --build
