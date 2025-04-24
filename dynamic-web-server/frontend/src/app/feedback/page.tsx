@@ -4,7 +4,7 @@ import {
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
-import MyForm from "./components/my-form";
+import FeedbackForm from "./components/feedback";
 
 
 export default function Page() {
@@ -15,7 +15,7 @@ export default function Page() {
       <AppHeader />
       <HydrationBoundary state={dehydrate(queryClient)}>
         <div className="p-4">
-          <MyForm />
+          <FeedbackForm />
         </div>
       </HydrationBoundary>
     </div>

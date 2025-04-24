@@ -1,7 +1,18 @@
+const path = require("path");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  allowedDevOrigins: ['https://manojkhatri42.com.np'],
-  // if you have any custom config
+  reactStrictMode: true,
+
+  webpack: (config, { isServer }) => {
+    // Enable async WASM support
+    config.experiments = {
+      ...config.experiments,
+      asyncWebAssembly: true,
+    };
+
+    return config;
+  },
 };
 
 module.exports = nextConfig;

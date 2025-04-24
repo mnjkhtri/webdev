@@ -4,7 +4,7 @@ import {
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
-import WebSocketDemo from "./components/random";
+import OrderBook from "./components/orderbook";
 
 
 export default function Page() {
@@ -15,7 +15,7 @@ export default function Page() {
       <AppHeader />
       <HydrationBoundary state={dehydrate(queryClient)}>
         <div className="p-4">
-          <WebSocketDemo />
+          <OrderBook />
         </div>
       </HydrationBoundary>
     </div>

@@ -4,7 +4,7 @@ import {
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
-import FractalGallery from "./components/fractal-gallery";
+import FractalGallery from "./components/gallery";
 
 export default function Page() {
   const queryClient = new QueryClient();

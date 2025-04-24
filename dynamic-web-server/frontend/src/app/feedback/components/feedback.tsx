@@ -28,7 +28,7 @@ type ContactFormValues = {
   subscribe: boolean
 }
 
-export default function ContactForm() {
+export default function FeedbackForm() {
   const form = useForm<ContactFormValues>({
     defaultValues: {
       insta: "",

@@ -20,11 +20,5 @@ export const fractals: FractalDefinition[] = [
     id: "julia",
     name: "Julia",
     component: React.createElement(Julia),
-  },
-  // Add more fractals here, e.g.:
-  // {
-  //   id: "burning-ship",
-  //   name: "Burning Ship",
-  //   component: React.createElement(BurningShip),
-  // },
+  }
 ]

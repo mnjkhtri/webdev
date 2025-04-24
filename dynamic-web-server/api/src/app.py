@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from src.routers import items, models, drip, todo, websocket
+from src.routers import chat
+from src.routers import todo
 from src.middleware import add_process_time_header
 from src.db.conn import Base, engine
 
@@ -24,25 +25,6 @@ def hello():
     return {"message": "thanks claude lol"}
 
 """
-FastAPI allows defining path parameters using Python's string formatting syntax. 
-Path parameters can have type annotations, enabling automatic data conversion and validation. 
-Path operations are evaluated in order, meaning specific paths must be declared before generic ones.
-"""
-app.include_router(items.router)
-
-"""
-To restrict a path parameter to specific values, use Enum
-"""
-app.include_router(models.router)
-
-"""
-Clients send data to your API using a request body, usually in JSON format, while the API responds with a response body. 
-Unlike path or query parameters, request bodies are used when submitting structured data. 
-FastAPI leverages Pydantic models to handle request bodies efficiently, ensuring type validation
-"""
-app.include_router(drip.router)
-
-"""
 A middleware is a function that works with every request before it is processed by any specific path operation. 
 And also with every response before returning it.
 """
@@ -57,4 +39,4 @@ The WebSocket API makes it possible to open a two-way interactive communication 
 the user's browser and a server. 
 With this API, you can send messages to a server and receive responses without having to poll the server for a reply.
 """
-app.include_router(websocket.router)
+app.include_router(chat.router)

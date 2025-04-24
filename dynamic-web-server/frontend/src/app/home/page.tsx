@@ -4,7 +4,7 @@ import {
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
-import Explorer from "./components/explorer";
+import Home from "./components/home";
 
 
 export default function Page() {
@@ -15,7 +15,7 @@ export default function Page() {
       <AppHeader />
       <HydrationBoundary state={dehydrate(queryClient)}>
         <div className="p-4">
-          <Explorer />
+          <Home />
         </div>
       </HydrationBoundary>
     </div>

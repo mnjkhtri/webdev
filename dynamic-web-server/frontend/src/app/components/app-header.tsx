@@ -12,7 +12,7 @@ import { Separator } from "@/components/ui/separator";
 import {
     SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { usePathFinder } from "@/hooks/use-pathfinder";
+import { usePathFinder } from "@/app-hooks/use-pathfinder";
 import { Fragment } from "react";
 import { ModeToggle } from "./toggle-theme";
 

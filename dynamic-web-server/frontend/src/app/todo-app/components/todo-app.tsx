@@ -41,7 +41,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-export default function TodoTable() {
+export default function TodoApp() {
   const [editingId, setEditingId] = useState(null);
   // Fetch todos
   const { data, isLoading, refetch } = useQuery({

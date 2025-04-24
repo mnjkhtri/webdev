@@ -5,6 +5,7 @@ import Providers from "@/lib/providers";
 import { ThemeProvider } from "next-themes";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { AppSidebar } from "./components/app-sidebar";
+import { AppHeader } from "./components/app-header";
 
 export default function RootLayout({
   children,

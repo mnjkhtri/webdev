@@ -6,8 +6,8 @@ from typing import List, Literal
 from src.middleware import get_api_key
 
 router = APIRouter(
-    prefix="/ws/test", 
-    tags=["test"],
+    prefix="/ws/chat", 
+    tags=["chat"],
 )
 
 class ServerMessage(BaseModel):
@@ -111,14 +111,14 @@ async def websocket_docs():
       - **client_id**: Identifier of the client who sent or received the message.
 
     **Usage Instructions**:
-    1. Open a WebSocket connection to: `ws://localhost:5000/ws/test/{client_id}`.
+    1. Open a WebSocket connection to: `ws://localhost:5000/ws/chat/{client_id}`.
     2. Send plain text messages.
     3. Listen for JSON messages from the server.
     4. Expect periodic random number messages and any broadcasted messages from other clients.
 
     """
     return {
-        "WebSocket URL": "ws://localhost:5000/ws/test/{client_id}",
+        "WebSocket URL": "ws://localhost:5000/ws/chat/{client_id}",
         "Description": "Duplex WebSocket communication endpoint with random number generation and broadcasting.",
         "Message Flow": {
             "Client-to-Server": {

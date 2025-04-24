@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button"
 import { MenuItem, MenuArray } from "./menu";
-import { usePathFinder } from "@/hooks/use-pathfinder";
+import { usePathFinder } from "@/app-hooks/use-pathfinder";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -38,7 +38,7 @@ export function AppSidebar({ auth, user, ...props }: React.ComponentProps<typeof
                         Manoj Khatri
                     </Button>
                     <div className="text-xs uppercase tracking-widest opacity-60 mt-2">
-                        webdev sucks
+                        vibe webdev
                     </div>
                 </div>
             </SidebarHeader>

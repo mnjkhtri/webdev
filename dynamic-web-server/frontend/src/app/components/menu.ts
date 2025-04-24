@@ -39,9 +39,19 @@ export const MenuArray: MenuItem[] =
                     href: "/feedback",
                 },
                 {
-                    id: "map",
-                    title: "map",
-                    href: "/map",
+                    id: "home",
+                    title: "home",
+                    href: "/home",
+                },
+                {
+                    id: "physics",
+                    title: "physics",
+                    href: "/physics",
+                },
+                {
+                    id: "orderbook",
+                    title: "orderbook",
+                    href: "/orderbook",
                 }
             ],
         },
