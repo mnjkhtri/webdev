@@ -1,0 +1,96 @@
+# ============================
+# General Ignore
+# ============================
+.DS_Store
+Thumbs.db
+*.log
+*.swp
+*.swo
+*.swn
+*.tmp
+*.cache
+
+# ============================
+# Python Ignore
+# ============================
+
+# Virtual environments
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Pip dependency files
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Local development settings
+.env
+*.env
+.envrc
+.settings/
+.secret/
+
+# Pytest and coverage reports
+.coverage
+htmlcov/
+.tox/
+nosetests.xml
+coverage.xml
+*.cover
+*.pycoverage
+
+# ============================
+# Node.js (NPM) Ignore
+# ============================
+
+# Node modules (avoid copying to Docker)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Build artifacts
+dist/
+build/
+
+# Next.js cache
+.next/
+
+# Nuxt.js cache
+.nuxt/
+
+# Gatsby cache
+.cache/
+
+# Logs
+logs/
+*.log
+yarn.lock
+package-lock.json
+
+# Temporary files
+tmp/
+temp/
+
+# ============================
+# Git Ignore
+# ============================
+.git/
+.gitignore
+
+# ============================
+# Docker Ignore
+# ============================
+.dockerignore
+Dockerfile
+docker-compose.override.yml
+docker-compose.override.yaml

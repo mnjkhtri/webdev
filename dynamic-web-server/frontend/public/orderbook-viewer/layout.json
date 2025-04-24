@@ -1,0 +1,93 @@
+{
+  "sizes": [1],
+  "detail": {
+    "main": {
+      "type": "split-area",
+      "orientation": "horizontal",
+      "children": [
+        {
+          "type": "tab-area",
+          "widgets": ["PERSPECTIVE_ORDER_BOOK_GRID"],
+          "currentIndex": 0
+        },
+        {
+          "type": "tab-area",
+          "widgets": ["PERSPECTIVE_ORDER_BOOK_VOLUME"],
+          "currentIndex": 0
+        }
+      ],
+      "sizes": [0.5, 0.5]
+    }
+  },
+  "mode": "globalFilters",
+  "viewers": {
+    "PERSPECTIVE_ORDER_BOOK_GRID": {
+      "plugin": "datagrid",
+      "plugin_config": {
+        "columns": {},
+        "edit_mode": "READ_ONLY",
+        "scroll_lock": false
+      },
+      "columns_config": {
+        "amount": {
+          "number_fg_mode": "color",
+          "fg_gradient": 180
+        },
+        "price": {
+          "number_fg_mode": "color",
+          "fg_gradient": 0
+        }
+      },
+      "settings": true,
+      "theme": "Pro Dark",
+      "title": "Order Book Table",
+      "group_by": ["price"],
+      "split_by": ["side"],
+      "sort": [["price", "desc"]],
+      "filter": [],
+      "expressions": {},
+      "columns": ["amount"],
+      "aggregates": {},
+      "master": true,
+      "table": "orderbook",
+      "linked": false,
+      "selectable": true
+    },
+    "PERSPECTIVE_ORDER_BOOK_VOLUME": {
+      "plugin": "X Bar",
+      "plugin_config": {},
+      "columns_config": {
+        "timestamp": {},
+        "reason": {},
+        "signed_amount": {
+          "number_fg_mode": "bar",
+          "fg_gradient": 270
+        },
+        "delta": {},
+        "side": {},
+        "price_bucket": {},
+        "type": {},
+        "amount": {
+          "number_fg_mode": "bar",
+          "fg_gradient": 270
+        }
+      },
+      "settings": true,
+      "theme": "Pro Dark",
+      "title": "Order Book Bar",
+      "group_by": ["side", "price"],
+      "split_by": [],
+      "sort": [["side", "asc"], ["price", "desc"]],
+      "filter": [],
+      "expressions": {
+        "signed_amount": "\"amount\" * if(\"side\"=='bid'){-1}else{1}"
+      },
+      "columns": ["signed_amount"],
+      "aggregates": {},
+      "master": false,
+      "table": "orderbook",
+      "linked": false,
+      "selectable": true
+    }
+  }
+}

@@ -1,0 +1,6 @@
+pandas
+tornado
+websockets
+websocket-client
+perspective-python==3.4.3
+# ^3.5.x is broken

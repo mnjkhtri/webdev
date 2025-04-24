@@ -1,0 +1,24 @@
+services:
+  stream:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5001:5001"
+    networks:
+      - localnetwork
+    env_file:
+      - .env.dev
+    volumes:
+      - ./src:/app/src
+
+volumes:
+  pgdata:
+
+networks:
+  localnetwork:
+
+
+######
+
+# sudo docker compose -f docker-compose.dev.yml up --build
