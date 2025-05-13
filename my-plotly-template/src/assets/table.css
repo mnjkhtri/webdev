@@ -1,0 +1,11 @@
+.dcc-dash-table tbody tr:hover td.dash-cell {
+  background-color: var(--secondary) !important;
+  color: var(--secondary-foreground) !important;
+
+  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.dcc-dash-table tbody td.dash-cell.focused {
+  background-color: var(--secondary) !important;
+  color: var(--secondary-foreground) !important;
+}

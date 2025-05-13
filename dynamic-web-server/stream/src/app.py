@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(threadName)s - 
 BINANCE_SYMBOL = "BTCUSDT"
 ORDER_BOOK_SNAPSHOT_LIMIT = 1000
 TOP_N_LEVELS = 10
-UPDATE_INTERVAL_SECONDS = 0.05
+UPDATE_INTERVAL_SECONDS = 0.1
 
 def main():
     """
@@ -67,17 +67,17 @@ def main():
                     else:
                         logging.debug(f"[{thread_name}] No data formatted for update.")
 
-                    # # ----
-                    # logging.info("Inspecting Perspective table contents...")
-                    # try:
-                    #     view = current_psp_table.view()
-                    #     table_data = view.to_records()
-                    #     df = pd.DataFrame(table_data)
-                    #     logging.info(df)
-                    #     view.delete()
-                    # except Exception as e:
-                    #     logging.error(f"Failed to inspect perspective table: {e}")
-                    # # ----
+                    # ----
+                    logging.info("Inspecting Perspective table contents...")
+                    try:
+                        view = current_psp_table.view()
+                        table_data = view.to_records()
+                        df = pd.DataFrame(table_data)
+                        logging.info(df)
+                        view.delete()
+                    except Exception as e:
+                        logging.error(f"Failed to inspect perspective table: {e}")
+                    # ----
 
                 elif not stop_event.is_set():
                     logging.warning(f"[{thread_name}] Order book data not available or empty. Retrying...")

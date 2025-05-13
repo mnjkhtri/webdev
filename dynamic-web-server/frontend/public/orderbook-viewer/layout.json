@@ -55,7 +55,10 @@
     },
     "PERSPECTIVE_ORDER_BOOK_VOLUME": {
       "plugin": "X Bar",
-      "plugin_config": {},
+      "plugin_config": {
+        "transition": true,
+        "animation_duration": 1000
+      },
       "columns_config": {
         "timestamp": {},
         "reason": {},

@@ -11,10 +11,13 @@ Thumbs.db
 # ============================
 # Python Ignore
 # ============================
+.vscode/
 
 # Virtual environment
+**/.venv/
 venv/
 env/
+.env/
 __pycache__/
 *.pyc
 *.pyo

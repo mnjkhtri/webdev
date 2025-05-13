@@ -51,7 +51,7 @@ class BinanceOrderBook:
 
         self.symbol = symbol.upper()
         self.snapshot_limit = snapshot_limit
-        self._stream_url = f"{self._BASE_WSS_URL}/{self.symbol.lower()}@depth"
+        self._stream_url = f"{self._BASE_WSS_URL}/{self.symbol.lower()}@depth@100ms"
         self._snapshot_url = f"{self._BASE_API_URL}/depth"
 
         # Use SortedDict for efficient sorted operations.
